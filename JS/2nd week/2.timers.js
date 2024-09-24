@@ -13,7 +13,7 @@ let num = 1;
 let interval = setInterval(() => {
     console.log(num++);
     if(num > 10) {
-        clearInterval(interval);
+        clearInterval(interval); // Cancela el timeout
     }
 }, 1000);
 
