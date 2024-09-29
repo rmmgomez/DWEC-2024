@@ -10,6 +10,6 @@ class User {
   }
 }
 console.log(User.getRoles()); // ["user", "guest", "admin"]
-let user = new User("john"); // We can't call a static method from an object
+let user = new User("john");
 console.log(user.name);
-// console.log(user.getRoles()); // Uncaught TypeError: user.getRoles is not a function
+console.log(user.getRoles()); // Uncaught TypeError: user.getRoles is not a function
