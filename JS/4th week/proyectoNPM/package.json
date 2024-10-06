@@ -1,0 +1,25 @@
+{
+  "name": "ejemplo",
+  "version": "1.0.0",
+  "description": "Ejemplo de prueba",
+  "main": "index.js",
+  "scripts": {
+    "hola": "echo \"Hola DAW!\" && exit 1",
+    "start": "lite-server",
+    "test": "eslint index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^5.3.3",
+    "dayjs": "^1.11.13"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.1.0",
+    "@eslint/js": "^9.12.0",
+    "eslint": "^9.12.0",
+    "globals": "^15.10.0",
+    "lite-server": "^2.6.1",
+    "uglify-js": "^3.19.3"
+  }
+}
