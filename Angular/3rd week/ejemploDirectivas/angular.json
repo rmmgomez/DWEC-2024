@@ -3,20 +3,25 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "angularproyecto": {
+    "ejemploDirectivas": {
       "projectType": "application",
-      "schematics": {},
+      "schematics": {
+        "@schematics/angular:component": {
+          "inlineStyle": true
+        }
+      },
       "root": "",
       "sourceRoot": "src",
-      "prefix": "",
+      "prefix": "app",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/angularproyecto",
+            "outputPath": "dist/ejemplo-directivas",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
+              "zone.js"
             ],
             "tsConfig": "tsconfig.app.json",
             "assets": [
@@ -26,8 +31,7 @@
               }
             ],
             "styles": [
-              "src/styles.css",
-              "node_modules/bootstrap/dist/css/bootstrap.css"
+              "src/styles.css"
             ],
             "scripts": []
           },
@@ -59,10 +63,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "angularproyecto:build:production"
+              "buildTarget": "ejemploDirectivas:build:production"
             },
             "development": {
-              "buildTarget": "angularproyecto:build:development"
+              "buildTarget": "ejemploDirectivas:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -74,6 +78,8 @@
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "polyfills": [
+              "zone.js",
+              "zone.js/testing"
             ],
             "tsConfig": "tsconfig.spec.json",
             "assets": [
@@ -87,22 +93,8 @@
             ],
             "scripts": []
           }
-        },
-        "lint": {
-          "builder": "@angular-eslint/builder:lint",
-          "options": {
-            "lintFilePatterns": [
-              "src/**/*.ts",
-              "src/**/*.html"
-            ]
-          }
         }
       }
     }
-  },
-  "cli": {
-    "schematicCollections": [
-      "@angular-eslint/schematics"
-    ]
   }
 }
