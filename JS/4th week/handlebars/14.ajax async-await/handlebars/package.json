@@ -1,0 +1,22 @@
+{
+  "name": "handlebars",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "handlebars": "handlebars -c \"handlebars\" templates/*.hbs -f compiled.js --esm handlebars",
+    "posthandlebars": "node hbs-replace.js",
+    "prestart": "npm run handlebars",
+    "start": "vite",
+    "prebuild": "npm run handlebars",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "replace-in-file": "^8.2.0",
+    "vite": "^4.4.5"
+  },
+  "dependencies": {
+    "handlebars": "^4.7.8"
+  }
+}
