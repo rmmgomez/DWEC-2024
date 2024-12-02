@@ -1,0 +1,100 @@
+<div class="card mb-4">
+  <div class="card-header bg-success text-white">Add product</div>
+  <div class="card-body">
+    <form (ngSubmit)="addProduct()" [formGroup]="productForm">
+      <label class="mb-3 row">
+        <span class="col-sm-2 col-form-label text-sm-end">Description</span>
+        <div class="col-sm-10">
+          <input
+            type="text"
+            class="form-control"
+            formControlName="description"
+            [validationClasses]="{ valid: 'is-valid', invalid: 'is-invalid' }"
+          />
+          @let descErrors = productForm.get('description')?.errors;
+          @if(descErrors?.['required']) {
+          <div class="invalid-feedback">La descripción es obligatoria</div>
+          } @if(descErrors?.['minlength']) {
+          <div class="invalid-feedback">
+            Te faltan al menos
+            {{descErrors?.['minlength'].requiredLength - descErrors?.['minlength'].actualLength}}
+            caracteres más
+          </div>
+          }
+        </div>
+      </label>
+      <label class="mb-3 row">
+        <span class="col-sm-2 col-form-label text-sm-end">Price</span>
+        <div class="col-sm-10">
+          <input
+            type="number"
+            class="form-control"
+            formControlName="price"
+            [validationClasses]="{ valid: 'is-valid', invalid: 'is-invalid' }"
+          />
+          @let priceErrors = productForm.get('price')?.errors;
+          @if(priceErrors?.['required']) {
+          <div class="invalid-feedback">Price cannot be empty</div>
+          } @if(priceErrors?.['min']) {
+          <div class="invalid-feedback">Price cannot be 0 or negative</div>
+          }
+        </div>
+      </label>
+      <label class="mb-3 row">
+        <span class="col-sm-2 col-form-label text-sm-end">Available</span>
+        <div class="col-sm-10">
+          <input
+            type="date"
+            class="form-control"
+            formControlName="available"
+            [validationClasses]="{ valid: 'is-valid', invalid: 'is-invalid' }"
+          />
+          @let availErrors = productForm.get('available')?.errors;
+          @if(availErrors?.['required']) {
+            <div class="invalid-feedback">Date cannot be empty</div>
+          } @if(availErrors?.['minDate']) {
+            <div class="invalid-feedback">
+              La fecha no puede ser anterior a {{ minDate | date : "dd/MM/yyyy" }}
+            </div>
+          }
+        </div>
+      </label>
+      <label class="mb-3 row">
+        <span class="col-sm-2 col-form-label text-sm-end"> Image</span>
+        <div class="col-sm-10">
+          <input
+            type="file"
+            class="form-control"
+            accept="image/*"
+            encodeBase64
+            (encoded)="imageBase64 = $event"
+            formControlName="imageUrl"
+            [validationClasses]="{ valid: 'is-valid', invalid: 'is-invalid' }"
+          />
+          <div class="invalid-feedback">You must select an image file</div>
+        </div>
+      </label>
+      @if (imageBase64) {
+      <div class="row mb-3">
+        <div class="col-sm-10 offset-sm-2">
+          <img class="product-img" [src]="imageBase64" alt="" />
+        </div>
+      </div>
+      }
+
+      <div class="mb-3 row">
+        <div class="offset-sm-2 col-sm-10">
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="productForm.invalid"
+          >
+            Submit
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div>{{ productForm.value | json }}</div>

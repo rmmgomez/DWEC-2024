@@ -1,0 +1,6 @@
+.star-container {
+  width: fit-content;
+  .fa-star {
+    cursor: pointer;
+  }
+}

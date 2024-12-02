@@ -1,0 +1,154 @@
+<div class="card mb-4">
+  <div class="card-header bg-success text-white">Seleccionar un día</div>
+  <div class="card-body">
+    <form [formGroup]="daysForm">
+      <div class="mb-3" formArrayName="daysOpen">
+        @for(day of days; track $index; let i = $index) {
+        <div class="form-check form-check-inline">
+          <!-- Inputs must have DIFFERENT names -->
+          <input
+            type="checkbox"
+            class="form-check-input"
+            [formControlName]="i"
+            id="checkDay{{ i }}"
+          />
+          <label class="form-check-label" for="checkDay{{ i }}">{{
+            day
+          }}</label>
+        </div>
+        }
+        @if(daysForm.get('daysOpen')?.invalid) {
+          <div class="text-danger">Debes seleccionar al menos un día</div>
+        }
+      </div>
+      <div class="mb-3">
+        {{ daysForm.value| json }}
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="card mb-4">
+  <div class="card-header bg-success text-white">
+    Correos coinciden con FormGroup
+  </div>
+  <div class="card-body">
+    <form [formGroup]="emailGroupForm">
+      <ng-container formGroupName="emailGroup">
+        <label class="mb-3 row">
+          <span class="col-sm-2 col-form-label text-sm-end">Email</span>
+          <div class="col-sm-10">
+            <input
+              type="email"
+              class="form-control"
+              formControlName="email"
+              [validationClasses]="{ valid: 'is-valid', invalid: 'is-invalid' }"
+            />
+            <div class="invalid-feedback">
+              El email es obligatorio y debe tener un formato correcto
+            </div>
+          </div>
+        </label>
+        <label class="mb-3 row">
+          <span class="col-sm-2 col-form-label text-sm-end">Repite email</span>
+          <div class="col-sm-10">
+            @let emailGroupModel = emailGroupForm.get('emailGroup')!;
+            @let email2Model = emailGroupModel.get('repeatEmail')!;
+            <input
+              type="email"
+              class="form-control"
+              formControlName="repeatEmail"
+              [class]="{
+                'is-valid': email2Model.touched && !emailGroupModel.errors?.['equalValues'],
+                'is-invalid': email2Model.touched && emailGroupModel.errors?.['equalValues'],
+              }"
+            />
+            <div class="invalid-feedback">Los correos no coinciden</div>
+          </div>
+        </label>
+      </ng-container>
+    </form>
+    <p>{{ emailGroupForm.value | json }}</p>
+  </div>
+</div>
+
+<div class="card mb-4">
+  <div class="card-header bg-success text-white">
+    Correos coinciden con validador en formulario
+  </div>
+  <div class="card-body">
+    <form [formGroup]="emailGroupForm2">
+        <label class="mb-3 row">
+          <span class="col-sm-2 col-form-label text-sm-end">Email</span>
+          <div class="col-sm-10">
+            <input
+              type="email"
+              class="form-control"
+              formControlName="email"
+              [validationClasses]="{ valid: 'is-valid', invalid: 'is-invalid' }"
+            />
+            <div class="invalid-feedback">
+              El email es obligatorio y debe tener un formato correcto
+            </div>
+          </div>
+        </label>
+        <label class="mb-3 row">
+          <span class="col-sm-2 col-form-label text-sm-end">Repite email</span>
+          <div class="col-sm-10">
+            @let email2Model2 = emailGroupForm2.get('repeatEmail')!;
+            <input
+              type="email"
+              class="form-control"
+              formControlName="repeatEmail"
+              [class]="{
+                'is-valid': email2Model2.touched && !emailGroupForm2.errors?.['equalValues'],
+                'is-invalid': email2Model2.touched && emailGroupForm2.errors?.['equalValues'],
+              }"
+            />
+            <div class="invalid-feedback">Los correos no coinciden</div>
+          </div>
+        </label>
+    </form>
+    <p>{{ emailGroupForm2.value | json }}</p>
+  </div>
+</div>
+
+<div class="card mb-4">
+  <div class="card-header bg-success text-white">
+    Correos coinciden con validador en campo repetido
+  </div>
+  <div class="card-body">
+    <form [formGroup]="emailGroupForm3">
+        <label class="mb-3 row">
+          <span class="col-sm-2 col-form-label text-sm-end">Email</span>
+          <div class="col-sm-10">
+            <input
+              type="email"
+              class="form-control"
+              formControlName="email"
+              [validationClasses]="{ valid: 'is-valid', invalid: 'is-invalid' }"
+            />
+            <div class="invalid-feedback">
+              El email es obligatorio y debe tener un formato correcto
+            </div>
+          </div>
+        </label>
+        <label class="mb-3 row">
+          <span class="col-sm-2 col-form-label text-sm-end">Repite email</span>
+          <div class="col-sm-10">
+            <input
+              type="email"
+              class="form-control"
+              formControlName="repeatEmail"
+              [class]="{
+                'is-valid': emailControl2.touched && emailControl2.valid,
+                'is-invalid': emailControl2.touched && emailControl2.invalid,
+              }"
+            />
+            <div class="invalid-feedback">Los correos no coinciden</div>
+          </div>
+        </label>
+    </form>
+    <p>{{ emailGroupForm2.value | json }}</p>
+  </div>
+</div>

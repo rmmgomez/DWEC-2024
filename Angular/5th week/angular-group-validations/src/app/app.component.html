@@ -1,0 +1,29 @@
+<nav class="navbar navbar-expand navbar-dark bg-dark mb-4">
+  <div class="container-fluid">
+    <a class="navbar-brand" [routerLink]="['/']">Group validations</a>
+    <ul class="navbar-nav me-auto">
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          [routerLink]="['/template']"
+          [routerLinkActive]="['active']"
+        >
+          Template forms
+        </a>
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          [routerLink]="['/reactive']"
+          [routerLinkActive]="['active']"
+        >
+          Reactive forms
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container">
+  <router-outlet />
+</div>

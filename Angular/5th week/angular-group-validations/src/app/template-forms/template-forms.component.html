@@ -1,0 +1,176 @@
+<div class="card mb-4">
+  <div class="card-header bg-success text-white">Seleccionar un día</div>
+  <div class="card-body">
+    <form>
+      <div
+        class="mb-3"
+        ngModelGroup="daysGroup"
+        #daysModel="ngModelGroup"
+        oneChecked
+      >
+        @for(day of days; track $index; let i = $index) {
+        <div class="form-check form-check-inline">
+          <!-- Inputs must have DIFFERENT names -->
+          <input
+            type="checkbox"
+            class="form-check-input"
+            name="days{{ i }}"
+            [(ngModel)]="daysOpen[i]"
+            id="checkDay{{ i }}"
+          />
+          <label class="form-check-label" for="checkDay{{ i }}">{{
+            day
+          }}</label>
+        </div>
+        } @if(daysModel.invalid) {
+        <div class="text-danger">Debes seleccionar al menos un día</div>
+        }
+      </div>
+      <div class="mb-3">
+        {{ daysOpen | json }}
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="card mb-4">
+  <div class="card-header bg-success text-white">
+    Correos coinciden con ngModelGroup
+  </div>
+  <div class="card-body">
+    <form #formEmail="ngForm">
+      <ng-container
+        ngModelGroup="emailGroup"
+        #emailGroupModel="ngModelGroup"
+        [equalValues]="['email', 'email2']"
+      >
+        <label class="mb-3 row">
+          <span class="col-sm-2 col-form-label text-sm-end">Email</span>
+          <div class="col-sm-10">
+            <input
+              type="email"
+              class="form-control"
+              name="email"
+              required
+              email
+              [(ngModel)]="email"
+              [validationClasses]="{ valid: 'is-valid', invalid: 'is-invalid' }"
+            />
+            <div class="invalid-feedback">
+              El email es obligatorio y debe tener un formato correcto
+            </div>
+          </div>
+        </label>
+        <label class="mb-3 row">
+          <span class="col-sm-2 col-form-label text-sm-end">Repite email</span>
+          <div class="col-sm-10">
+            <input
+              type="email"
+              class="form-control"
+              name="email2"
+              ngModel
+              #email2Model="ngModel"
+              [class]="{
+                'is-valid': email2Model.touched && !emailGroupModel.errors?.['equalValues'],
+                'is-invalid': email2Model.touched && emailGroupModel.errors?.['equalValues'],
+              }"
+            />
+            <div class="invalid-feedback">Los correos no coinciden</div>
+          </div>
+        </label>
+      </ng-container>
+    </form>
+    <p>{{ formEmail.value | json }}</p>
+  </div>
+</div>
+
+<div class="card mb-4">
+  <div class="card-header bg-success text-white">
+    Correos coinciden con validador de grupo en formulario
+  </div>
+  <div class="card-body">
+    <form #formEmail3="ngForm" [equalValues]="['email', 'email2']">
+      <label class="mb-3 row">
+        <span class="col-sm-2 col-form-label text-sm-end">Email</span>
+        <div class="col-sm-10">
+          <input
+            type="email"
+            class="form-control"
+            name="email"
+            required
+            email
+            [(ngModel)]="email"
+            [validationClasses]="{ valid: 'is-valid', invalid: 'is-invalid' }"
+          />
+          <div class="invalid-feedback">
+            El email es obligatorio y debe tener un formato correcto
+          </div>
+        </div>
+      </label>
+      <label class="mb-3 row">
+        <span class="col-sm-2 col-form-label text-sm-end">Repite email</span>
+        <div class="col-sm-10">
+          <input
+            type="email"
+            class="form-control"
+            name="email2"
+            ngModel
+            #email2Model2="ngModel"
+            [class]="{
+              'is-valid': email2Model2.touched && !formEmail3.errors?.['equalValues'],
+              'is-invalid': email2Model2.touched && formEmail3.errors?.['equalValues'],
+            }"
+          />
+          <div class="invalid-feedback">Los correos no coinciden</div>
+        </div>
+      </label>
+    </form>
+    <p>{{ formEmail3.value | json }}</p>
+  </div>
+</div>
+
+<div class="card mb-4">
+  <div class="card-header bg-success text-white">
+    Correos coinciden sin ngModelGroup
+  </div>
+  <div class="card-body">
+    <form #formEmail2="ngForm">
+      <label class="mb-3 row">
+        <span class="col-sm-2 col-form-label text-sm-end">Email</span>
+        <div class="col-sm-10">
+          <input
+            type="email"
+            class="form-control"
+            name="email"
+            required
+            email
+            [(ngModel)]="email"
+            [validationClasses]="{ valid: 'is-valid', invalid: 'is-invalid' }"
+          />
+          <div class="invalid-feedback">
+            El email es obligatorio y debe tener un formato correcto
+          </div>
+        </div>
+      </label>
+      <label class="mb-3 row">
+        <span class="col-sm-2 col-form-label text-sm-end">Repite email</span>
+        <div class="col-sm-10">
+          <input
+            type="email"
+            class="form-control"
+            name="email2"
+            ngModel
+            #emailRepeatModel="ngModel"
+            [sameValue]="email()"
+            [class]="{
+              'is-valid': emailRepeatModel.touched && emailRepeatModel.valid,
+              'is-invalid': emailRepeatModel.touched && emailRepeatModel.invalid,
+            }"
+          />
+          <div class="invalid-feedback">Los correos no coinciden</div>
+        </div>
+      </label>
+    </form>
+    <p>{{ formEmail2.value | json }}</p>
+  </div>
+</div>
