@@ -1,0 +1,9 @@
+<span class="star-container" (mouseleave)="auxRating.set(rating())">
+  @for (star of [1,2,3,4,5]; track star) {
+  <fa-icon
+    [icon]="star <= auxRating() ? starSolid : starRegular"
+    (mouseenter)="auxRating.set(star)"
+    (click)="rating.set(star)"
+  ></fa-icon>
+  }
+</span>
